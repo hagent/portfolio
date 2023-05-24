@@ -1,3 +1,8 @@
+function wait(seconds: number) {
+  return new Promise(resolve => setTimeout(resolve, seconds * 1000));
+}
+
+
 // we define two variables, one holding data, and one holding a value if the promise
 //was resolved
 let myData: any = undefined;
@@ -11,14 +16,13 @@ export default function Table() {
     // an array to remember already computed values
     if (!promise)
       promise = fetch(
-        "https://jsonplaceholder.typicode.com/todos/1",
-        { cache: 'no-store' }
+        "https://jsonplaceholder.typicode.com/todos/1?q=" + Math.random(),
+        { cache: 'no-store', next: { revalidate: 0 } }
       )
         .then((res) => res.json())
         .then((d) => {
-          setTimeout(() => {
-            myData = d;
-          }, 10000)
+          myData = d;
+          return wait(5);
         });
     // we can also throw a new Promise with rejection like below
     // throw new Promise((undefined,rej)=>rej())
