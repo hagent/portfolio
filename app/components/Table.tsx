@@ -30,7 +30,10 @@ export default function Table() {
   // a fixed message
   return (
     <div className="w-full flex justify-center items-center h-screen">
-      {data.title || "Hello Ali"}
+      Table component
+      <pre>
+        {JSON.stringify(data, null, 2)}
+      </pre>
     </div>
   );
 };

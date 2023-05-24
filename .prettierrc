@@ -1,3 +1,5 @@
 {
-  "spaces": 2
+  "spaces": 2,
+  "semi": true
+
 }

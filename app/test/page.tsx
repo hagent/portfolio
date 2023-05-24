@@ -1,31 +1,17 @@
-import dynamic from 'next/dynamic';
-import Image from 'next/image'
-import Table from '@components/Table'
-import { Suspense } from 'react'
+import { Suspense } from "react";
+import TestMain from "@components/TestMain";
 
-const SuspenseTable = dynamic(
-  () => import("@components/Table"),
-  {
-    ssr: true, loading: () =>
-      <div className="w-full flex justify-center items-center h-screen">
-        ...loading
-      </div>
-  }
-);
-
-export default function Test() {
+export default async function Test() {
+  const todo2 = await (await fetch("https://jsonplaceholder.typicode.com/todos/2", {
+    cache: "no-store",
+  })).json();
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       test page
-
-      <Suspense fallback={
-        <div className="w-full flex justify-center items-center h-screen">
-          ...loading
-        </div>
-      }>
-        <SuspenseTable />
-      </Suspense>
-
+      <pre>
+        {JSON.stringify(todo2, null, 2)}
+      </pre>
+      <TestMain />
     </main>
-  )
+  );
 }
