@@ -1,7 +1,7 @@
 // we define two variables, one holding data, and one holding a value if the promise
 //was resolved
-let myData = undefined;
-let promise = undefined;
+let myData: any = undefined;
+let promise: any = undefined;
 // our React component which will be rendered inside Suspense boundaries
 export default function Table() {
   //our method which will be fired when we call the component
