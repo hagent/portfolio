@@ -11,7 +11,8 @@ export default function Table() {
     // an array to remember already computed values
     if (!promise)
       promise = fetch(
-        "https://jsonplaceholder.typicode.com/todos/1"
+        "https://jsonplaceholder.typicode.com/todos/1",
+        { cache: 'no-store' }
       )
         .then((res) => res.json())
         .then((d) => {
