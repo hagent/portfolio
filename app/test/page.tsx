@@ -2,6 +2,8 @@ import { Suspense } from "react";
 import TestMain from "@components/TestMain";
 
 export default async function Test() {
+  console.log('test page')
+
   const todo2 = await (await fetch("https://jsonplaceholder.typicode.com/todos/2", {
     cache: "no-store",
   })).json();

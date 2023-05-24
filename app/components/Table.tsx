@@ -1,37 +1,30 @@
+import { useRef } from "react";
+
 function wait(seconds: number) {
   return new Promise(resolve => setTimeout(resolve, seconds * 1000));
 }
 
-
-// we define two variables, one holding data, and one holding a value if the promise
-//was resolved
-let myData: any = undefined;
-let promise: any = undefined;
-// our React component which will be rendered inside Suspense boundaries
 export default function Table() {
-  //our method which will be fired when we call the component
+  let promise: Promise<any> | undefined;
+  let promiseResult: any | undefined;
   const waitForData = () => {
-    //if data already there, we return it and render is done, if not the Spinner is spinning
-    if (myData) return myData;
-    // an array to remember already computed values
-    if (!promise)
-      promise = fetch(
-        "https://jsonplaceholder.typicode.com/todos/1?q=" + Math.random(),
-        { cache: 'no-store', next: { revalidate: 0 } }
-      )
-        .then((res) => res.json())
-        .then((d) => {
-          myData = d;
-          return wait(5);
-        });
-    // we can also throw a new Promise with rejection like below
-    // throw new Promise((undefined,rej)=>rej())
+    if (promiseResult) return promiseResult;
+    if (promise) throw promise;
+
+    promise = fetch(
+      "https://jsonplaceholder.typicode.com/todos/" + Math.round(Math.random() * 3) + 1,
+    )
+      .then((res) => res.json())
+      .then((d) => {
+        d.random = Math.random();
+        promiseResult = d;
+        return wait(5);
+      });
+
     throw promise;
   };
 
   const data = waitForData();
-  // we fill in what is returned from the typicode API, if no data returned we display
-  // a fixed message
   return (
     <div className="w-full flex justify-center items-center h-screen">
       Table component

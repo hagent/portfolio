@@ -13,6 +13,7 @@ const SuspenseTable = dynamic(() => import("@components/Table"), {
 });
 
 export default function TestMain() {
+  console.log('testmain component')
   return (
     <>
       <Suspense
